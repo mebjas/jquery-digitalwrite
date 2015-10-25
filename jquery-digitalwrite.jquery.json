@@ -1,0 +1,27 @@
+{
+    "name": "jquery-digitalwrite",
+    "title": "jQuery digital write",
+    "description": "jQuery plugin to write charecters on a 5X5 matrix with colors, animations and size.",
+    "keywords": [
+        "digital charecters",
+        "5X5",
+        "matrxi",
+        "digital alphabets"
+    ],
+    "version": "1.0.0",
+    "author": {
+        "name": "minhaz",
+        "url": "http://minhazav.me/"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/mebjas/jquery-digitalwrite/blob/master/license.md"
+        }
+    ],
+    "bugs": "https://github.com/mebjas/jquery-digitalwrite/issues",
+    "homepage": "http://minhazav.me/samples/jquery-digitalwrite-example/",
+    "dependencies": {
+        "jquery": ">=1.5"
+    }
+}
