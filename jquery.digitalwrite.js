@@ -236,8 +236,10 @@ var ms = {
 						for (y = 0; y < 5; y++) {
 							if (bmatrix[x][y]) {
 								switch (blob.animation) {
-									case 'spiral': blob.SpiralTo((x+1) +'_' +(y+1), j + 1, i + 1);
-									default: blob.MoveTo((x+1) +'_' +(y+1), j + 1, i + 1);
+									case 'spiral': blob.SpiralTo((x+1) +'_' +(y+1), j + 1, i + 1); break;
+									case 'contract' :blob.MoveTo((x+1) +'_' +(y+1), 3, 3); break;
+									case 'fade' :blob.FadeTo((x+1) +'_' +(y+1), 3, 3); break;
+									default: blob.MoveTo((x+1) +'_' +(y+1), j + 1, i + 1); break;
 								}
 								bmatrix[x][y] = false;
 								isB = true;
@@ -248,6 +250,17 @@ var ms = {
 					}
 				}
 			}
+		}
+
+
+		if (blob.animation == 'contract') {
+			setTimeout(function() {
+				var i = 0, j = 0;
+
+				for (i = 0; i < 5; i++)
+					for (j = 0; j < 5; j++)
+						if (matrix[i][j]) blob.MoveTo('3_3', j + 1, i + 1);
+			}, 1000);
 		}
 	}
 
@@ -263,12 +276,11 @@ var ms = {
 	 * @param: start (bool) - to identify first call
 	 */
 	var FREQ = 10;
-	var stop = false;
 	function circle(src, tgt, r, DX, DYdir, start) {
 		if (typeof start != 'undefined') {
 			if (src.y < tgt.y) DYdir = -1;
 		}
-		if (stop) return;
+
 		if (r < 1) {
 			src.elem.css('top', tgt.y +'px');
 			src.elem.css('left', tgt.x +'px');
@@ -277,6 +289,7 @@ var ms = {
 
 		var DY = (r) * (r) - (src.x - tgt.x) * (src.x - tgt.x);
 		DY = Math.sqrt(DY);
+
 		if (isNaN(DY)) {
 			DX *= -1;
 			DYdir *= -1;
@@ -296,7 +309,6 @@ var ms = {
 
 		src.elem.css('top', src.y +'px');
 		src.elem.css('left', src.x +'px');
-		console.log ('src moved to (' +src.x +',' +src.y +')');
 
 		setTimeout(function() {
 			circle(src, tgt, r-1, DX, DYdir);
@@ -455,6 +467,23 @@ var ms = {
 		setTimeout(function() {
 			t.css('left', obj.x +'px');
 		}, 500);
+	}
+
+	/**
+	 * Function to move an element with an identfier {id}
+	 * to position i, j
+	 * TODO: Correct this, this is incorrect
+	 */
+	digitalwrite.prototype.FadeTo = function(id, i, j) {
+		var t = $(".dwelem[pos='" +this.char +this.hash +'_' +id +"']").eq(0);
+		t.fadeOut();
+		t.attr('pos', this.char +this.hash +'_' +i +'_' +j);
+		var obj = this.GetPosition(i, j);
+		t.css('transition', 'none');
+		t.css('top', obj.y +'px');
+		t.css('left', obj.x +'px');
+
+		t.fadeIn(1000);
 	}
 
 	/**
