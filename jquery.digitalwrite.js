@@ -388,6 +388,20 @@ var ms = {
 			}
 		}
 
+		if (this.animation == 'none') {
+			// just create if
+			for (i = 0; i < 5; i++) {
+				for (j = 0; j < 5; j++) {
+					if (ms[this.char][i][j]) {
+						this.createElement(j + 1, i + 1);
+						this.create++;
+					}
+				}
+			}
+
+			return;
+		}
+
 		// Insert the middle element
 		this.create = 1;
 		this.matrix[3][3] = true;
