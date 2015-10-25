@@ -3,10 +3,12 @@
     "title": "jQuery digital write",
     "description": "jQuery plugin to write charecters on a 5X5 matrix with colors, animations and size.",
     "keywords": [
-        "digital characters",
+        "digital",
+        "characters",
         "5X5",
         "matrix",
-        "digital alphabets"
+        "digital",
+        "alphabets"
     ],
     "version": "1.0.0",
     "author": {
