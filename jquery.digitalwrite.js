@@ -297,6 +297,14 @@ var ms = {
 			this.blobWidth = parseInt(options.width) / 5;
 		}
 
+		// Set background and border color
+		if (typeof options.background != 'undefined') {
+			this.background = options.background;
+		}
+		if (typeof options.border != 'undefined') {
+			this.border = options.border;
+		}
+
 		// Set posX and posY for the element
 		var offset = this.elem.offset();
 		this.startX = offset.left;
@@ -343,10 +351,21 @@ var ms = {
 	digitalwrite.prototype.createElement = function(i, j) {
 		var obj = this.GetPosition(i, j);
 		var div = document.createElement('div');
-		$(div).addClass('boo');
+		$(div).addClass('dwelem');
+
 		$(div).attr('pos', this.char +this.hash +'_' +i +'_' +j);
+
+		// Give CSS properties to the element
+		// Fixed ones
+		$(div).css('display', 'inline-block');
+		$(div).css('position', 'absolute');
+		$(div).css('transition', 'top .2s, left .2s');
+
+		// Variable ones
 		$(div).css('top', obj.y +'px').css('left', obj.x +'px');
 		$(div).css('width', this.blobWidth +'px').css('height', this.blobHeight +'px');
+		$(div).css('background-color', this.background);
+		$(div).css('border', this.border);
 		this.elem.append(div);
 		return div;
 	}
@@ -356,7 +375,7 @@ var ms = {
 	 * to position i, j
 	 */
 	digitalwrite.prototype.MoveTo = function(id, i, j) {
-		var t = $(".boo[pos='" +this.char +this.hash +'_' +id +"']").eq(0);
+		var t = $(".dwelem[pos='" +this.char +this.hash +'_' +id +"']").eq(0);
 		t.attr('pos', this.char +this.hash +'_' +i +'_' +j);
 		var obj = this.GetPosition(i, j);
 		t.css('top', obj.y +'px');
@@ -449,6 +468,8 @@ var ms = {
 		this.blobHeight = 20;
 		this.req = 0;
 		this.create = 0;
+		this.background = 'rgba(0, 0, 0, 1)';
+		this.border = '1px dashed black';
 	}
 
 	// Constructor

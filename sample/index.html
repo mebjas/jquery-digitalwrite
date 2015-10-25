@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Minhaz</title>
+<title>DigitalWrite jquery plugin example</title>
 
 <!-- All SEO things, meta data -->
 <!-- All CSS Codes in here -->
@@ -11,15 +11,6 @@
     display: block;
     margin: 0px;
     padding: 0px;
-}
-div.boo {
-	display: inline-block;
-	width: 20px;
-	height: 20px;
-	position: absolute;
-	background: rgba(0, 0, 0, 1);
-	border: 1px dashed black;
-	transition: top .2s, left .2s;
 }
 .target_ {
 	display: inline-block;
@@ -47,11 +38,10 @@ div.boo {
 <script src="../jquery.digitalwrite.js"></script>
 <script>
 	$("#W_placeholder").digitalwrite({char: 'W'});
-	$(".E_placeholder").digitalwrite({char: 'E'});
-	$("#L_placeholder").digitalwrite({char: 'L'});
-	$("#C_placeholder").digitalwrite({char: 'C'});
-	$("#O_placeholder").digitalwrite({char: 'O'});
-	$("#M_placeholder").digitalwrite({char: 'M'});
-	// $("#E_placeholder").digitalwrite({char: 'E'});
+	$("#L_placeholder").digitalwrite({char: 'L', border: '1px solid red'});
+	$("#C_placeholder").digitalwrite({char: 'C', background: 'rgba(0, 0, 0, .1)'});
+	$("#O_placeholder").digitalwrite({char: 'O', background: 'yellow'});
+	$("#M_placeholder").digitalwrite({char: 'M', border: 'yellow 3px dashed', background: 'yellowGreen'});
+	$(".E_placeholder").digitalwrite({char: 'E', background: 'white', border: '1px solid green'});
 </script>
 </html>
