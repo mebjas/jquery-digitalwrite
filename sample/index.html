@@ -2,6 +2,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="bootstrap.min.css">
 <title>DigitalWrite jquery plugin example</title>
 
 <!-- All SEO things, meta data -->
@@ -16,11 +18,12 @@
 	display: inline-block;
 	margin-right: 20px;
 }
+._target {display: inline-block;}
 </style>
 </head>
 <body>
 
-<section class="full-section" id="anim-frame" style="display: inline-block; margin: auto">
+<section class="full-section" id="anim-frame" style="width: 100%; text-align: center; min-height: 200px">
 	<div id="W_placeholder" class="target_"></div>
 	<div class="target_ E_placeholder"></div>
 	<div id="L_placeholder" class="target_"></div>
@@ -29,19 +32,283 @@
 	<div id="M_placeholder" class="target_"></div>
 	<div class="target_ E_placeholder"></div>
 </section>
+
+<div class="container">
+	<h1 style="text-align: center">digital write jQuery plugin</h1>
+	<div class="clearfix"></div>
+	<blockquote>
+		<p>
+			This is a <strong>jQuery plugin</strong> that allows you to create <strong>UPPERCASE</strong>
+			english alphabets in a <strong>5X5 matrix</strong>. Its very easy to use - 
+			<ul>
+				<li>
+					Include jQuery js library <br>
+					<code>&lt;script src="&lt;path to jQuery.version.js&gt;"&gt;&lt;script&gt;</code>
+				</li>
+				<br>
+				<li>
+					Include this library
+					<code>&lt;script src="./js/jquery.digitalwrite.js"&gt;&lt;script&gt;</code>
+					<br>
+					<strong>OR</strong> use the minified version
+					<code>&lt;script src="./js/jquery.digitalwrite.min.js"&gt;&lt;script&gt;</code>
+
+				</li>
+				<br>
+				<li>
+					And tadaa! - for any html dom element call the <code>digitalwrite</code> method!<br>
+					<code>$("#target").digitalwrite({char: 'W'});</code>
+
+				</li>
+			</ul>
+		</p>
+	</blockquote>
+</div>
+
+<br>
+<br>
+<br>
+
+<div class="container">
+	<h1 style="text-align: center">
+		Fork this on
+		<a href="https://github.com/mebjas/digital-write-jquery-plugin">
+			<div class="_target" id="github_g"></div>
+			<div class="_target" id="github_i"></div>
+			<div class="_target" id="github_t"></div>
+			<div class="_target" id="github_h"></div>
+			<div class="_target" id="github_u"></div>
+			<div class="_target" id="github_b"></div>
+		</a>
+	</h1>
+	<div class="clearfix"></div>
+</div>
+
+<br>
+<br>
+<br>
+
+<div class="container">
+	<h1 style="text-align: center">Properties</h1>
+	<div class="clearfix"></div>
+	<blockquote>
+
+		<p>Properties are passed as parameter, for example: <code>$("#target").digitalwrite({char: 'W'});</code>: here 
+		<code>{char: 'W'}</code> is the charecter property! Other properties which are customisable are:</p>
+	</blockquote>
+
+	<table class="table table-bordered">
+		<tr>
+			<th>Property</th>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td><code>char</code></td>
+			<td><strong>(REQUIRED)</strong> Charecter to print: <code>$("#target").digitalwrite({char: 'W'});</code></td>
+		</tr>
+		<tr>
+			<td><code>width</code></td>
+			<td>Width of the charecter block <code>in px</code> <code>$("#target").digitalwrite({char: 'W', width: 100});</code></td>
+		</tr>
+		<tr>
+			<td><code>height</code></td>
+			<td>Height of the charecter block <code>in px</code> <code>$("#target").digitalwrite({char: 'W', height: 100});</code></td>
+		</tr>
+		<tr>
+			<td><code>background</code></td>
+			<td>
+				background of the charecter block <br>
+				<code>$("#target").digitalwrite({char: 'W', background: 'red'});</code><br>
+				<code>$("#target").digitalwrite({char: 'W', background: 'rgb(255, 255, 0)'});</code><br>
+				<code>$("#target").digitalwrite({char: 'W', background: 'rgba(0, 0, 0, 0.1)'});</code><br>
+				<code>$("#target").digitalwrite({char: 'W', background: '#abc123'});</code>
+			</td>
+		</tr>
+		<tr>
+			<td><code>border</code></td>
+			<td>Border of the charecter block <code>in px</code> <code>$("#target").digitalwrite({char: 'W', border: '1px dashed red'});</code></td>
+		</tr>
+		<tr>
+			<td><code>animation</code></td>
+			<td>animation you expect for final transition! The categories are: <code>motion</code>, <code>spiral</code>, <code>contract</code> & <code>fade</code> 
+
+			<br>
+			<h6>
+				Note that <code>spiral</code> & <code>fade</code> are experimental and buggy!
+			</h6>
+
+				<br><code>$("#target").digitalwrite({char: 'W', border: '1px dashed red'});</code>
+			</td>
+		</tr>
+	</table>
+
+</div>
+
+<div class="container">
+	<h1 style="text-align: center">Customisations</h1>
+	<div class="clearfix"></div>
+	<h2>Size</h1>
+
+	<div class="example_size">
+		<div id="m20" class="target_"></div>
+		<div id="m40" class="target_"></div>
+		<div id="m60" class="target_"></div>
+		<div id="m80" class="target_"></div>
+		<div id="m100" class="target_"></div>
+		<div id="m120" class="target_"></div>
+	</div>
+	<br>
+	<br>
+	<br>
+	<h3>Code used for them respectively are:</h3>
+
+	<div class="codes">
+		<div style="margin-bottom: 5px"><code>$("#m20").digitalwrite({char: 'M', height: 20, width: 20, animation: 'none'});</code></div>
+		<div style="margin-bottom: 5px"><code>$("#m40").digitalwrite({char: 'M', height: 40, width: 40, animation: 'none'});</code></div>
+		<div style="margin-bottom: 5px"><code>$("#m60").digitalwrite({char: 'M', height: 60, width: 60, animation: 'none'});</code></div>
+		<div style="margin-bottom: 5px"><code>$("#m80").digitalwrite({char: 'M', height: 80, width: 80, animation: 'none'});</code></div>
+		<div style="margin-bottom: 5px"><code>$("#m100").digitalwrite({char: 'M', height: 100, width: 100, animation: 'none'});</code></div>
+		<div style="margin-bottom: 5px"><code>$("#m120").digitalwrite({char: 'M', height: 120, width: 120, animation: 'none'});</code></div>
+	</div>
+
+	<h2>Colors</h1>
+
+	<div class="example_size">
+		<div id="c1" class="target_"></div>
+		<div id="c2" class="target_"></div>
+		<div id="c3" class="target_"></div>
+		<div id="c4" class="target_"></div>
+		<div id="c5" class="target_"></div>
+		<div id="c6" class="target_"></div>
+	</div>
+	<br>
+	<br>
+	<br>
+	<h3>Code used for them respectively are:</h3>
+
+	<div class="codes">
+		<div style="margin-bottom: 5px"><code>$("#c1").digitalwrite({char: 'M', background: 'rgba(0, 0, 0, .1)'});</code></div>
+		<div style="margin-bottom: 5px"><code>$("#c2").digitalwrite({char: 'I', background: 'rgba(255, 0, 0, .1)', border: '1px dotted red'});</code></div>
+		<div style="margin-bottom: 5px"><code>$("#c3").digitalwrite({char: 'N', background: 'yellow', border: '1px solid red'});</code></div>
+		<div style="margin-bottom: 5px"><code>$("#c4").digitalwrite({char: 'H', background: 'yellowGreen', border: '1px solid green'});</code></div>
+		<div style="margin-bottom: 5px"><code>$("#c5").digitalwrite({char: 'A'});</code></div>
+		<div style="margin-bottom: 5px"><code>$("#c6").digitalwrite({char: 'Z', background: 'red', border: '1px solid red'});</code></div>
+	</div>
+
+	<h2>Animations <button class="btn btn-default" id="test" type="submit">TEST ANIMATIONS</button> </h1>
+
+	<div class="example_size row" style="text-align: center">
+		<div class="col-md-3">
+			<h4>motion</h4>
+			<br>
+			<div id="m1" class="target_"></div>
+		</div>
+
+		<div class="col-md-3">
+			<h4>spiral (experimental)</h4>
+			<br>
+			<div id="m2" class="target_"></div>
+		</div>
+
+		<div class="col-md-3">
+			<h4>contract</h4>
+			<br>
+			<div id="m3" class="target_"></div>
+		</div>
+
+		<div class="col-md-3">
+			<h4>fade (experimental)</h4>
+			<br>
+			<div id="m4" class="target_"></div>
+		</div>
+	</div>
+	<br>
+	<br>
+	<br>
+	<h3>Code used for them respectively are:</h3>
+
+	<div class="codes">
+		<div style="margin-bottom: 5px"><code>$("#m1").digitalwrite({char: 'M', background: 'rgba(0, 0, 0, .1)'});</code></div>
+		<div style="margin-bottom: 5px"><code>$("#m2").digitalwrite({char: 'M', background: 'rgba(0, 0, 0, .1)', animation: 'spiral'});</code></div>
+		<div style="margin-bottom: 5px"><code>$("#m3").digitalwrite({char: 'M', background: 'rgba(0, 0, 0, .1)', animation: 'contract'});</code></div>
+		<div style="margin-bottom: 5px"><code>$("#m4").digitalwrite({char: 'M', background: 'rgba(0, 0, 0, .1)', animation: 'fade'});</code></div>
+	</div>
+
+	<br>
+	<br>
+	<br>
+</div>
+
+<div class="container">
+	<h1>Future Ideas</h1>
+	<ul>
+		<li>Write the whole word / sentense in one function call!</li>
+		<li>More animations and correct the buggy ones for now!</li>
+		<li>Transition of one alphabet to another (may be a word to other) - TRANSFORMER TYPE!</li>
+	</ul>
+	<br>
+	<h1>
+		Feel free to fork and pull - <a href="https://github.com/mebjas/digital-write-jquery-plugin">github/mebjas/digital-write-jquery-plugin</a>
+	</h1>
+
+</div>
+
+<hr>
+
+<footer>
+	<div class="container">
+		<a href="http://minhazav.me">Home</a>
+		&nbsp;|&nbsp;
+		<a href="http://blog.minhazav.me/">Blog</a>
+		&nbsp;|&nbsp;
+		<a href="http://github.com/mebjas">mebjas@github</a>
+
+
+	</div>
+</footer>
 	
 </body>
 
 
 <!-- All javascript codes -->
 <script src="./jquery-1.11.1.js"></script>
-<script src="../jquery.digitalwrite.js"></script>
+<script src="../jquery.digitalwrite.min.js"></script>
 <script>
-	$("#W_placeholder").digitalwrite({char: 'W'});
-	$("#L_placeholder").digitalwrite({char: 'L', border: '1px solid red'});
+	$("#github_g").digitalwrite({height: 30, width: 30, char: 'G'});
+	$("#github_i").digitalwrite({height: 30, width: 30, char: 'I'});
+	$("#github_t").digitalwrite({height: 30, width: 30, char: 'T'});
+	$("#github_h").digitalwrite({height: 30, width: 30, char: 'H'});
+	$("#github_u").digitalwrite({height: 30, width: 30, char: 'U'});
+	$("#github_b").digitalwrite({height: 30, width: 30, char: 'B'});
+
+	$("#W_placeholder").digitalwrite({char: 'W', background: 'rgba(0, 0, 0, .1)'});
+	$("#L_placeholder").digitalwrite({char: 'L', background: 'rgba(0, 0, 0, .1)'});
 	$("#C_placeholder").digitalwrite({char: 'C', background: 'rgba(0, 0, 0, .1)'});
-	$("#O_placeholder").digitalwrite({char: 'O', background: 'yellow'});
-	$("#M_placeholder").digitalwrite({char: 'M', border: 'yellow 3px dashed', background: 'yellowGreen'});
-	$(".E_placeholder").digitalwrite({char: 'E', background: 'white', border: '1px solid green'});
+	$("#O_placeholder").digitalwrite({char: 'O', background: 'rgba(0, 0, 0, .1)'});
+	$("#M_placeholder").digitalwrite({char: 'M', background: 'rgba(0, 0, 0, .1)'});
+	$(".E_placeholder").digitalwrite({char: 'E', background: 'rgba(0, 0, 0, .1)'});
+
+	$("#m20").digitalwrite({char: 'M', height: 20, width: 20, animation: 'none'});
+	$("#m40").digitalwrite({char: 'M', height: 40, width: 40, animation: 'none'});
+	$("#m60").digitalwrite({char: 'M', height: 60, width: 60, animation: 'none'});
+	$("#m80").digitalwrite({char: 'M', height: 80, width: 80, animation: 'none'});
+	$("#m100").digitalwrite({char: 'M', height: 100, width: 100, animation: 'none'});
+	$("#m120").digitalwrite({char: 'M', height: 120, width: 120, animation: 'none'});
+
+	$("#c1").digitalwrite({char: 'M', background: 'rgba(0, 0, 0, .1)'});
+	$("#c2").digitalwrite({char: 'I', background: 'rgba(255, 0, 0, .1)', border: '1px dotted red'});
+	$("#c3").digitalwrite({char: 'N', background: 'yellow', border: '1px solid red'});
+	$("#c4").digitalwrite({char: 'H', background: 'yellowGreen', border: '1px solid green'});
+	$("#c5").digitalwrite({char: 'A'});
+	$("#c6").digitalwrite({char: 'Z', background: 'red', border: '1px solid red'});
+
+	$(document).ready(function() {
+		$("#test").on('click', function() {
+			$("#m1").digitalwrite({char: 'M', background: 'rgba(0, 0, 0, .1)'});
+			$("#m2").digitalwrite({char: 'M', background: 'rgba(0, 0, 0, .1)', animation: 'spiral'});
+			$("#m3").digitalwrite({char: 'M', background: 'rgba(0, 0, 0, .1)', animation: 'contract'});
+			$("#m4").digitalwrite({char: 'M', background: 'rgba(0, 0, 0, .1)', animation: 'fade'});
+		})
+	})
 </script>
 </html>
