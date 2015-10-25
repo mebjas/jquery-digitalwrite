@@ -235,7 +235,10 @@ var ms = {
 					for (x = 0; x < 5; x++) {
 						for (y = 0; y < 5; y++) {
 							if (bmatrix[x][y]) {
-								blob.MoveTo((x+1) +'_' +(y+1), j + 1, i + 1);
+								switch (blob.animation) {
+									case 'spiral': blob.SpiralTo((x+1) +'_' +(y+1), j + 1, i + 1);
+									default: blob.MoveTo((x+1) +'_' +(y+1), j + 1, i + 1);
+								}
 								bmatrix[x][y] = false;
 								isB = true;
 								break;
@@ -246,6 +249,58 @@ var ms = {
 				}
 			}
 		}
+	}
+
+
+	/**
+	 * [HELPER] [recursive] Function to rearrange the arrangement of blobs to 
+	 * forma a certain charecter, with spiral animation
+	 * @param: src (Object) - the src coordinates, with element identifier
+	 * @param: tgt (Object) - the target coordinates,
+	 * @param: r (Decimal) - radial distance
+	 * @param: DX (int) - direction in x
+	 * @param: DYDir (int) - direction in y
+	 * @param: start (bool) - to identify first call
+	 */
+	var FREQ = 10;
+	var stop = false;
+	function circle(src, tgt, r, DX, DYdir, start) {
+		if (typeof start != 'undefined') {
+			if (src.y < tgt.y) DYdir = -1;
+		}
+		if (stop) return;
+		if (r < 1) {
+			src.elem.css('top', tgt.y +'px');
+			src.elem.css('left', tgt.x +'px');
+			return;
+		}
+
+		var DY = (r) * (r) - (src.x - tgt.x) * (src.x - tgt.x);
+		DY = Math.sqrt(DY);
+		if (isNaN(DY)) {
+			DX *= -1;
+			DYdir *= -1;
+			src.x = src.x + 4 * DX;
+			DY = (r) * (r) - (src.x - tgt.x) * (src.x - tgt.x);
+			DY = Math.sqrt(DY);
+		} else src.x = src.x + 2 * DX;
+		src.y = tgt.y + DYdir * DY;
+
+
+		if (isNaN(src.y)) {
+			src.elem.css('top', tgt.y +'px');
+			src.elem.css('left', tgt.x +'px');
+			return;
+		}
+
+
+		src.elem.css('top', src.y +'px');
+		src.elem.css('left', src.x +'px');
+		console.log ('src moved to (' +src.x +',' +src.y +')');
+
+		setTimeout(function() {
+			circle(src, tgt, r-1, DX, DYdir);
+		}, FREQ);
 	}
 
 	/**
@@ -304,6 +359,10 @@ var ms = {
 		if (typeof options.border != 'undefined') {
 			this.border = options.border;
 		}
+
+		// Set animation property
+		if (typeof options.animation != 'undefined')
+			this.animation = options.animation;
 
 		// Set posX and posY for the element
 		var offset = this.elem.offset();
@@ -382,6 +441,26 @@ var ms = {
 		setTimeout(function() {
 			t.css('left', obj.x +'px');
 		}, 500);
+	}
+
+	/**
+	 * Function to spirally move the blob element with identifier {id}
+	 * to i, j
+	 * TODO: this animation is not yet perfect, correct it
+	 */
+	digitalwrite.prototype.SpiralTo = function(id, i, j) {
+		var t = $(".dwelem[pos='" +this.char +this.hash +'_' +id +"']").eq(0);
+		t.attr('pos', this.char +this.hash +'_' +i +'_' +j);
+		t.css('transition', 'none');
+
+		var src = id.split('_');
+		src = this.GetPosition(src[0], src[1]);
+		src.elem = t;
+
+		var tgt = this.GetPosition(i, j);
+
+		var r = Math.sqrt( (src.x - tgt.x) * (src.x - tgt.x) + (src.y - tgt.y) * (src.y - tgt.y) );
+		circle(src, tgt, r, -1, 1, true);
 	}
 
 	/**
@@ -470,6 +549,7 @@ var ms = {
 		this.create = 0;
 		this.background = 'rgba(0, 0, 0, 1)';
 		this.border = '1px dashed black';
+		this.animation = 'motion';
 	}
 
 	// Constructor
