@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Minhaz</title>
+
+<!-- All SEO things, meta data -->
+<!-- All CSS Codes in here -->
+<style type="text/css">
+.target div {
+    display: block;
+    margin: 0px;
+    padding: 0px;
+}
+div.boo {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	background: rgba(0, 0, 0, 1);
+	border: 1px dashed black;
+	transition: top .2s, left .2s;
+}
+.target_ {
+	display: inline-block;
+	margin-right: 20px;
+}
+</style>
+</head>
+<body>
+
+<section class="full-section" id="anim-frame" style="display: inline-block; margin: auto">
+	<div id="W_placeholder" class="target_"></div>
+	<div class="target_ E_placeholder"></div>
+	<div id="L_placeholder" class="target_"></div>
+	<div id="C_placeholder" class="target_"></div>
+	<div id="O_placeholder" class="target_"></div>
+	<div id="M_placeholder" class="target_"></div>
+	<div class="target_ E_placeholder"></div>
+</section>
+	
+</body>
+
+
+<!-- All javascript codes -->
+<script src="./jquery-1.11.1.js"></script>
+<script src="../jquery.digitalwrite.js"></script>
+<script>
+	$("#W_placeholder").digitalwrite({char: 'W'});
+	$(".E_placeholder").digitalwrite({char: 'E'});
+	$("#L_placeholder").digitalwrite({char: 'L'});
+	$("#C_placeholder").digitalwrite({char: 'C'});
+	$("#O_placeholder").digitalwrite({char: 'O'});
+	$("#M_placeholder").digitalwrite({char: 'M'});
+	// $("#E_placeholder").digitalwrite({char: 'E'});
+</script>
+</html>
