@@ -23,6 +23,10 @@
             "url": "https://github.com/mebjas/jquery-digitalwrite/blob/master/license.md"
         }
     ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mebjas/jquery-digitalwrite.git"
+    },
     "bugs": "https://github.com/mebjas/jquery-digitalwrite/issues",
     "homepage": "http://minhazav.me/samples/jquery-digitalwrite-example/",
     "dependencies": {

@@ -212,7 +212,31 @@ var ms = {
 	Z: Z
 };
 
+var blobCount = {};
+
 (function( $ ) {
+	/**
+	 * Function to count no of blobs in the charecter
+	 * @optimised: cache of data done, is same char is
+	 * requested multiple times
+	 * @dependent on global variable {ms}
+	 * @param: char (string) - the charecter
+	 */
+	function countBlobs(char) {
+		char = char.toUpperCase();
+		if (typeof blobCount[char] != 'undefined')
+			return blobCount[char];
+
+		var _b = 0;
+		for (i = 0; i < ms[char].length; i++) {
+			for (j = 0; j < ms[char][i].length; j++) {
+				if ( ms[char][i][j] == 1) _b++;
+			}
+		}
+		blobCount[char] = _b;
+		return _b;
+	}
+
 	/**
 	 * Function to rearrange the arrangement of blobs to 
 	 * forma a certain charecter
@@ -236,10 +260,14 @@ var ms = {
 						for (y = 0; y < 5; y++) {
 							if (bmatrix[x][y]) {
 								switch (blob.animation) {
-									case 'spiral': blob.SpiralTo((x+1) +'_' +(y+1), j + 1, i + 1); break;
-									case 'contract' :blob.MoveTo((x+1) +'_' +(y+1), 3, 3); break;
-									case 'fade' :blob.FadeTo((x+1) +'_' +(y+1), 3, 3); break;
-									default: blob.MoveTo((x+1) +'_' +(y+1), j + 1, i + 1); break;
+									case 'spiral':
+										blob.SpiralTo((x+1) +'_' +(y+1), i + 1, j + 1); break;
+									case 'contract':
+										blob.MoveTo((x+1) +'_' +(y+1), 3, 3); break;
+									case 'fade':
+										blob.FadeTo((x+1) +'_' +(y+1), i + 1, j + 1); break;
+									default:
+										blob.MoveTo((x+1) +'_' +(y+1), i + 1, j + 1); break;
 								}
 								bmatrix[x][y] = false;
 								isB = true;
@@ -259,11 +287,10 @@ var ms = {
 
 				for (i = 0; i < 5; i++)
 					for (j = 0; j < 5; j++)
-						if (matrix[i][j]) blob.MoveTo('3_3', j + 1, i + 1);
+						if (matrix[i][j]) blob.MoveTo('3_3', i + 1, j + 1);
 			}, 1000);
 		}
 	}
-
 
 	/**
 	 * [HELPER] [recursive] Function to rearrange the arrangement of blobs to 
@@ -315,22 +342,6 @@ var ms = {
 		}, FREQ);
 	}
 
-	/**
-	 * Function to return the no of elements required
-	 * to form a charecter
-	 * @dependent on global variable {ms}
-	 * @param: char (string) - the charecter
-	 */
-	function GetReqVal(char) {
-		var matrix = ms[char.toUpperCase()];
-		var req = 0;
-		for (i = 0; i < matrix.length; i++)
-			for (j = 0; j < matrix[i].length; j++)
-				if (matrix[i][j] == 1) req++;
-	
-		return req;
-	}
-
 	// dictionery [hash] => {bool}, to make sure hashes used
 	// are unique
 	var hashes = {};
@@ -341,10 +352,13 @@ var ms = {
 		// Initialise some default properties
 		this.InitVariables();
 
+		// the default DOM element
 		this.elem = elem;
 
-		// Set all properties
+		// Set all properties	
+		// the charecter
 		this.char = options.char;
+		this.char_x = this.char;
 
 		// Determine hash for this element and give it to the
 		// DOM element as attribute - needed?
@@ -385,9 +399,8 @@ var ms = {
 		this.elem.css('height', this.height +'px');
 		this.elem.css('width', this.width +'px');
 
-
 		// Find the req value and set it
-		this.req = GetReqVal(options.char);
+		this.req = countBlobs(options.char);
 
 		// initialise the matrix
 		this.matrix = [];
@@ -395,8 +408,8 @@ var ms = {
 			this.matrix[i] = [];
 			for (j = 0; j < 7; j++) {
 				if (i == 0 || j == 0 || i == 6 || j == 6)
-					this.matrix[i][j] = true;
-				else this.matrix[i][j] = false;
+					this.matrix[i][j] = 1;
+				else this.matrix[i][j] = 0;
 			}
 		}
 
@@ -405,8 +418,9 @@ var ms = {
 			for (i = 0; i < 5; i++) {
 				for (j = 0; j < 5; j++) {
 					if (ms[this.char][i][j]) {
-						this.createElement(j + 1, i + 1);
+						this.createElement(i, j);
 						this.create++;
+						this.matrix[i + 1][j + 1] = 1;
 					}
 				}
 			}
@@ -416,7 +430,7 @@ var ms = {
 
 		// Insert the middle element
 		this.create = 1;
-		this.matrix[3][3] = true;
+		this.matrix[3][3] = 1;
 		this.createElement(3, 3);
 
 		var _this = this;
@@ -427,7 +441,7 @@ var ms = {
 
 	// Function to return relative position of element in i, j
 	digitalwrite.prototype.GetPosition = function(i, j) {
-		return {x: i*this.blobWidth, y: j*this.blobHeight};
+		return { x: j * this.blobWidth, y: i * this.blobHeight };
 	}
 
 	/**
@@ -438,7 +452,8 @@ var ms = {
 		var div = document.createElement('div');
 		$(div).addClass('dwelem');
 
-		$(div).attr('pos', this.char +this.hash +'_' +i +'_' +j);
+		$(div).attr('pos', this.char_x +this.hash +'_' +i +'_' +j);
+		this.matrix[i][j]++;
 
 		// Give CSS properties to the element
 		// Fixed ones
@@ -456,12 +471,140 @@ var ms = {
 	}
 
 	/**
+	 * Function to delete @param:count no of blobs
+	 */
+	digitalwrite.prototype.deleteBlobs = function(count) {
+		var matrix = ms[this.char];
+		for (i = 0; i < ms[this.char].length; i++) {
+			for (j = 0; j < ms[this.char][i].length; j++) {
+				if (ms[this.char][i][j] == 1) {
+					var id = (i + 1) +'_' +(j + 1);
+					var t = $(".dwelem[pos='" +this.char_x +this.hash +'_' +id +"']").eq(0);
+					t.remove();
+					matrix[i][j] = 0;
+					--count;
+					if (count == 0) return matrix;
+				}
+			}
+		}
+		return matrix;
+	}
+
+	/**
+	 * Function to create @param:count no of blobs
+	 */
+	digitalwrite.prototype.createBlobs = function(count) {
+		var matrix = ms[this.char];
+		var _b = [], c = count, i, j;
+
+		// get count no of blobs that are not empty
+		for (i = 0; i < ms[this.char].length; i++) {
+			for (j = 0; j < ms[this.char][i].length; j++) {
+				if (ms[this.char][j][i] == 1) {
+					_b.push({i: i, j: j});
+					--c;
+					if (c == 0) break;
+				}
+			}
+			if (c == 0) break;
+		}
+
+		// if not all count no of blobs created create them
+		if (c) {
+			while(c--) {
+				_b.push(_b[_b.length - 1]);
+			}
+		}
+
+		for (var i = 0; i < ms[this.char].length; i++) {
+			for (var j = 0; j < ms[this.char][i].length; j++) {
+				if (ms[this.char][i][j] == 0) {
+
+					var pos = _b.pop();
+					this.createElement(pos.i + 1, pos.j + 1);
+					this.MoveTo( (pos.i+1) +'_' +(pos.j+1), i + 1, j + 1);
+
+					matrix[i][j] = 1;
+					--count;
+					if (count == 0) return matrix;
+				}
+			}
+		}
+		return matrix;
+	}
+
+	/**
+	 * Function to transform this to some other charecter
+	 */
+	digitalwrite.prototype.transformTo = function(char) {
+		var _prevCharCount = countBlobs(this.char);
+		var _neededCharCount = countBlobs(char);
+		var matrix = ms[this.char], i, j;
+
+		if (_prevCharCount > _neededCharCount) {
+			// delete few charecters
+			matrix = this.deleteBlobs(_prevCharCount - _neededCharCount);
+		} else if (_prevCharCount < _neededCharCount) {
+			// create certain blocks
+			matrix = this.createBlobs(_neededCharCount - _prevCharCount);
+		}
+
+		for (i = 1; i < 6; i++) {
+			for (j = 1; j < 6; j++) {
+				this.matrix[i][j] = matrix[i - 1][j - 1];
+			}
+		}
+
+		// this.char_x = char;
+
+		// make a matrix
+		var _matrix = [];
+		for (var i = 0; i < ms[this.char].length; i++)
+			_matrix[i] = [0, 0, 0, 0, 0];
+
+		this.elem.children('.dwelem').each(function() {
+			var attr = $(this).attr('pos').split('_');
+			_matrix[parseInt(attr[1]) - 1][parseInt(attr[2]) - 1] = 1;
+		});
+
+		var _pos = [];
+		for (i = 0; i < 5; i++) {
+			for (j = 0; j < 5; j++) {
+				if (!ms[char][i][j] && _matrix[i][j]) {
+					_pos.push({i: i, j: j});
+				}
+			}
+		}
+
+		for (i = 0; i < 5; i++) {
+			for (j = 0; j < 5; j++) {
+				if (ms[char][i][j] && !_matrix[i][j]) {
+					var pos = _pos.pop();
+					this.MoveTo((pos.i + 1) +'_' +(pos.j + 1), i + 1, j + 1);
+				}
+			}
+		}
+
+		// Change the char, and hash of every element
+		this.char_x = char + this.char_x;
+		this.elem.children('.dwelem').each(function() {
+			var attr = $(this).attr('pos');
+			attr = char + attr.substr(0, attr.length);
+			$(this).attr('pos', attr);
+		});
+	}
+
+	/**
 	 * Function to move an element with an identfier {id}
 	 * to position i, j
 	 */
 	digitalwrite.prototype.MoveTo = function(id, i, j) {
-		var t = $(".dwelem[pos='" +this.char +this.hash +'_' +id +"']").eq(0);
-		t.attr('pos', this.char +this.hash +'_' +i +'_' +j);
+		var p = id.split('_');
+		this.matrix[parseInt(p[0])][parseInt(p[1])]--;
+		this.matrix[i][j]++;
+
+		var t = $(".dwelem[pos='" +this.char_x +this.hash +'_' +id +"']").eq(0);
+		t.attr('pos', this.char_x +this.hash +'_' +i +'_' +j);
 		var obj = this.GetPosition(i, j);
 		t.css('top', obj.y +'px');
 		setTimeout(function() {
@@ -475,15 +618,20 @@ var ms = {
 	 * TODO: Correct this, this is incorrect
 	 */
 	digitalwrite.prototype.FadeTo = function(id, i, j) {
-		var t = $(".dwelem[pos='" +this.char +this.hash +'_' +id +"']").eq(0);
+		var p = id.split('_');
+		this.matrix[parseInt(p[0])][parseInt(p[1])]--;
+		this.matrix[i][j]++;
+
+		var t = $(".dwelem[pos='" +this.char_x +this.hash +'_' +id +"']").eq(0);
 		t.fadeOut();
-		t.attr('pos', this.char +this.hash +'_' +i +'_' +j);
+		t.attr('pos', this.char_x +this.hash +'_' +i +'_' +j);
 		var obj = this.GetPosition(i, j);
-		t.css('transition', 'none');
 		t.css('top', obj.y +'px');
 		t.css('left', obj.x +'px');
 
-		t.fadeIn(1000);
+		setTimeout(function() {
+			t.fadeIn();
+		}, 1000);
 	}
 
 	/**
@@ -492,8 +640,8 @@ var ms = {
 	 * TODO: this animation is not yet perfect, correct it
 	 */
 	digitalwrite.prototype.SpiralTo = function(id, i, j) {
-		var t = $(".dwelem[pos='" +this.char +this.hash +'_' +id +"']").eq(0);
-		t.attr('pos', this.char +this.hash +'_' +i +'_' +j);
+		var t = $(".dwelem[pos='" +this.char_x +this.hash +'_' +id +"']").eq(0);
+		t.attr('pos', this.char_x +this.hash +'_' +i +'_' +j);
 		t.css('transition', 'none');
 
 		var src = id.split('_');
@@ -556,7 +704,7 @@ var ms = {
 
 		this.createElement(i, j);
 		this.MoveTo(i +'_' +j, first.x, first.y);
-		this.matrix[first.x][first.y] = true;
+		this.matrix[first.x][first.y] = 1;
 		this.create++;
 
 		// TODO: need to update the property in between
@@ -564,8 +712,8 @@ var ms = {
 
 		if (second != null) {
 			this.MoveTo(i +'_' +j, second.x, second.y);
-			this.matrix[i][j] = false;
-			this.matrix[second.x][second.y] = true;
+			this.matrix[i][j] = 0;
+			this.matrix[second.x][second.y] = 1;
 		}
 
 		var _t = this;
@@ -579,6 +727,7 @@ var ms = {
 	// Function to initialise the properties of the instance
 	digitalwrite.prototype.InitVariables = function() {
 		this.char = null;
+		this.char_x = null;
 		this.elem = null;
 		this.timeout = 1000;
 		this.width = 100;
@@ -598,7 +747,7 @@ var ms = {
 	// Constructor
 	$.fn.digitalwrite = function(options) {
 		if (typeof options.char != 'string') {
-			console.log('Charecter not specified or invalid format');
+			console.log('[digitial-write plugin] Charecter not specified or invalid format');
 			return;
 		}
 
@@ -608,7 +757,30 @@ var ms = {
 
 		// For each element call this
 		$(this).each(function() {
-			return new digitalwrite($(this), options);
+			$(this).data('obj', new digitalwrite($(this), options));
+		});
+	}
+
+	// Function to transform a charecter to some other
+	$.fn.transformTo = function(char) {
+		if (typeof char == 'undefined') {
+			console.log('[digitial-write plugin] Charecter not specified or invalid format');
+			return;
+		}
+
+		if ($(this).length == 0) {
+			return;
+		}
+
+		// For each element call this
+		$(this).each(function() {
+			var obj = $(this).data('obj');
+			if (typeof obj == 'undefined') {
+				// just create the object as it does not exist
+				$(this).digitalwrite({char: char});
+			}
+
+			obj.transformTo(char);
 		});
 	}
 

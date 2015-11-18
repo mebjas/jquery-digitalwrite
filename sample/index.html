@@ -60,6 +60,12 @@
 					<code>$("#target").digitalwrite({char: 'W'});</code>
 
 				</li>
+				<br>
+				<li>
+					And then transform to some other charecter using <code>transformTo</code> method!<br>
+					<code>$("#target").transformTo({'M'});</code>
+
+				</li>
 			</ul>
 		</p>
 	</blockquote>
@@ -142,6 +148,33 @@
 		</tr>
 	</table>
 
+</div>
+
+<div class="clearfix" style="height: 20px"></div>
+<div class="clearfix" style="height: 20px"></div>
+<div class="clearfix" style="height: 20px"></div>
+	
+<div class="container">
+	<h1 style="text-align: center"><code>transformTo()</code> method</h1>
+	<div class="clearfix"></div>
+	<div class="row">
+		<div class="col-md-6">
+			<blockquote>
+				Once you have created some digital alphabet, you can transform it to some other alphabet using the <code>transformTo()</code> method.<br>
+				For example call <code>$('#transform_MK').transformTo('N');</code>
+				<br>
+				<button class="btn btn-md btn-primary disabled" id="trnaform_btn">Transform this to K</button>
+			</blockquote>
+		</div>
+		<div class="col-md-6">
+			<div class="example_transform">
+				<div id="transform_MK" class="target_"></div>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix" style="height: 20px"></div>
+	<div class="clearfix" style="height: 20px"></div>
+	<div class="clearfix" style="height: 20px"></div>
 </div>
 
 <div class="container">
@@ -244,7 +277,7 @@
 	<ul>
 		<li>Write the whole word / sentense in one function call!</li>
 		<li>More animations and correct the buggy ones for now!</li>
-		<li>Transition of one alphabet to another (may be a word to other) - TRANSFORMER TYPE!</li>
+		<li><code>DONE</code> Transition of one alphabet to another (may be a word to other) - TRANSFORMER TYPE!</li>
 	</ul>
 	<br>
 	<h1>
@@ -272,7 +305,7 @@
 
 <!-- All javascript codes -->
 <script src="./jquery-1.11.1.js"></script>
-<script src="../jquery.digitalwrite.min.js"></script>
+<script src="../jquery.digitalwrite.js"></script>
 <script>
 	$("#github_g").digitalwrite({height: 30, width: 30, char: 'G'});
 	$("#github_i").digitalwrite({height: 30, width: 30, char: 'I'});
@@ -288,6 +321,18 @@
 	$("#M_placeholder").digitalwrite({char: 'M', background: 'rgba(0, 0, 0, .1)'});
 	$(".E_placeholder").digitalwrite({char: 'E', background: 'rgba(0, 0, 0, .1)'});
 
+	setTimeout(function() {
+		$("#W_placeholder").transformTo('M');
+		$(".E_placeholder").eq(0).transformTo('I');
+		$("#L_placeholder").transformTo('N');
+
+		$("#C_placeholder").transformTo('H');
+		$("#O_placeholder").transformTo('A');
+		$("#M_placeholder").transformTo('Z');
+		$(".E_placeholder").eq(1).css('opacity', '0');
+
+	}, 10000);
+
 	$("#m20").digitalwrite({char: 'M', height: 20, width: 20, animation: 'none'});
 	$("#m40").digitalwrite({char: 'M', height: 40, width: 40, animation: 'none'});
 	$("#m60").digitalwrite({char: 'M', height: 60, width: 60, animation: 'none'});
@@ -302,13 +347,23 @@
 	$("#c5").digitalwrite({char: 'A'});
 	$("#c6").digitalwrite({char: 'Z', background: 'red', border: '1px solid red'});
 
+	$("#transform_MK").digitalwrite({char: 'M', background: 'yellowGreen', border: '1px solid green'});
+
 	$(document).ready(function() {
 		$("#test").on('click', function() {
 			$("#m1").digitalwrite({char: 'M', background: 'rgba(0, 0, 0, .1)'});
 			$("#m2").digitalwrite({char: 'M', background: 'rgba(0, 0, 0, .1)', animation: 'spiral'});
 			$("#m3").digitalwrite({char: 'M', background: 'rgba(0, 0, 0, .1)', animation: 'contract'});
 			$("#m4").digitalwrite({char: 'M', background: 'rgba(0, 0, 0, .1)', animation: 'fade'});
-		})
+		});
+
+		setTimeout(function() {
+			$("#trnaform_btn").removeClass('disabled');
+			$("#trnaform_btn").on('click', function() {
+				$("#transform_MK").transformTo('K');
+				$(this).unbind('click');
+			});
+		}, 6000);
 	})
 </script>
 </html>
