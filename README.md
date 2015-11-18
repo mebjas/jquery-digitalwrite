@@ -47,5 +47,6 @@ So if we use everything it would look something like
 ```js
    $("#M_Placeholder").transformTo('K');
 ```
+![Image M](http://minhazav.xyz/samples/jquery-digitalwrite-example/aM.png) will transform to ![Image K](http://minhazav.xyz/samples/jquery-digitalwrite-example/aK.png) with animation!
 
 For more information [view documentation](http://minhazav.xyz/samples/jquery-digitalwrite-example/)
