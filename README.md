@@ -1,4 +1,6 @@
 # digitalwrite jQuery plugin
+[![todofy badge](https://todofy.org/b/mebjas/jquery-digitalwrite)](https://todofy.org/r/mebjas/jquery-digitalwrite)
+
 jQuery plugin to write charecters in digital format in a 5x5 matrix. Output looks something like this:
 
 ![screenshot](http://php-minhaz.rhcloud.com//samples/jquery-digitalwrite-example/screenshot.png)
