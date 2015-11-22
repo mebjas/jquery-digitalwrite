@@ -3,7 +3,7 @@
 
 jQuery plugin to write charecters in digital format in a 5x5 matrix. Output looks something like this:
 
-![screenshot](http://php-minhaz.rhcloud.com//samples/jquery-digitalwrite-example/screenshot.png)
+![screenshot](http://minhazav.xyz/samples/jquery-digitalwrite-example/screenshot.gif)
 
 Using this plugin, you can create such charecters with animations, color options & size options!
 In future it may enable you to transform one charecter to another - that should be kinda cool!
