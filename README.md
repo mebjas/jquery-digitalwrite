@@ -30,17 +30,21 @@ Its live on: http://minhazav.me/samples/jquery-digitalwrite-example/
  `border` - border property of the blocks, ex `1px solid red`, `2px dotted black`<br>
  `animation` - how the blocks animate to form the charecter at the end. Categories are: `none`, `motion`, `spiral`, `contract` & `fade`
   of these `spiral` & `fade` are experimental and buggy!
- 
+ `success` - (function) callback called when charecter has been printed on screen
+
 So if we use everything it would look something like
 ```js
-  $("#M_Placeholder").digitalwrite({
+$("#M_Placeholder").digitalwrite({
     char: 'M',
     height: 120,
     width: 120,
     background: 'rgba(0, 0, 0, .1)',
     border: '1px dased black',
-    animate: 'contract'
-    });
+    animate: 'contract',
+    success: function() {
+        console.info('Charecter M ready');
+    }
+});
 ```
 
 For more information [view documentation](http://php-minhaz.rhcloud.com//samples/jquery-digitalwrite-example/)

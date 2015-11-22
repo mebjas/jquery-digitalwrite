@@ -244,7 +244,7 @@ var blobCount = {};
 	 * @param: matrix (Array) - the array corresponding to the charecter
 	 * TODO: Add other sort of animations to this
 	 */
-	function arrange(blob, matrix) {
+	function arrange(blob, matrix, callback) {
 		var bmatrix = [];
 		for (i = 1; i < 6; i++) {
 			bmatrix[i-1] = [];
@@ -289,6 +289,10 @@ var blobCount = {};
 					for (j = 0; j < 5; j++)
 						if (matrix[i][j]) blob.MoveTo('3_3', i + 1, j + 1);
 			}, 1000);
+		}
+
+		if (typeof callback == 'function') {
+			setTimeout(callback, 1000);
 		}
 	}
 
@@ -390,6 +394,13 @@ var blobCount = {};
 		if (typeof options.animation != 'undefined')
 			this.animation = options.animation;
 
+		if (typeof options.success == 'function') {
+			this.success = options.success;
+		} else if (typeof options.success != 'undefined') {
+			// defined but not function
+			console.error('[digitalwrite - error] {options.success} should be a function');
+		}
+
 		// Set posX and posY for the element
 		var offset = this.elem.offset();
 		this.startX = offset.left;
@@ -425,6 +436,7 @@ var blobCount = {};
 				}
 			}
 
+			if (this.success != null) this.success();
 			return;
 		}
 
@@ -536,7 +548,7 @@ var blobCount = {};
 	/**
 	 * Function to transform this to some other charecter
 	 */
-	digitalwrite.prototype.transformTo = function(char) {
+	digitalwrite.prototype.transformTo = function(char, callback) {
 		var _prevCharCount = countBlobs(this.char);
 		var _neededCharCount = countBlobs(char);
 		var matrix = ms[this.char], i, j;
@@ -592,6 +604,10 @@ var blobCount = {};
 			attr = char + attr.substr(0, attr.length);
 			$(this).attr('pos', attr);
 		});
+
+		if (typeof callback == 'function') {
+			setTimeout(callback, 1000);
+		}
 	}
 
 	/**
@@ -661,7 +677,7 @@ var blobCount = {};
 		if (this.create == this.req) {
 			if (typeof this.alphabetised == 'undefined') {
 				this.alphabetised = true;
-				arrange(this, ms[this.char]);
+				arrange(this, ms[this.char], this.success);
 			}
 			return;
 		}
@@ -742,6 +758,7 @@ var blobCount = {};
 		this.background = 'rgba(0, 0, 0, 1)';
 		this.border = '1px dashed black';
 		this.animation = 'motion';
+		this.success = null;
 	}
 
 	// Constructor
@@ -762,7 +779,7 @@ var blobCount = {};
 	}
 
 	// Function to transform a charecter to some other
-	$.fn.transformTo = function(char) {
+	$.fn.transformTo = function(char, callback) {
 		if (typeof char == 'undefined') {
 			console.log('[digitial-write plugin] Charecter not specified or invalid format');
 			return;
@@ -780,7 +797,7 @@ var blobCount = {};
 				$(this).digitalwrite({char: char});
 			}
 
-			obj.transformTo(char);
+			obj.transformTo(char, callback);
 		});
 	}
 

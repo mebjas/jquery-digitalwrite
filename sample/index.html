@@ -124,15 +124,17 @@
 			<td><code>background</code></td>
 			<td>
 				background of the charecter block <br>
-				<code>$("#target").digitalwrite({char: 'W', background: 'red'});</code><br>
-				<code>$("#target").digitalwrite({char: 'W', background: 'rgb(255, 255, 0)'});</code><br>
-				<code>$("#target").digitalwrite({char: 'W', background: 'rgba(0, 0, 0, 0.1)'});</code><br>
-				<code>$("#target").digitalwrite({char: 'W', background: '#abc123'});</code>
+<pre>$("#target").digitalwrite({char: 'W', background: 'red'});
+$("#target").digitalwrite({char: 'W', background: 'rgb(255, 255, 0)'});
+$("#target").digitalwrite({char: 'W', background: 'rgba(0, 0, 0, 0.1)'});
+$("#target").digitalwrite({char: 'W', background: '#abc123'});
+</pre>
+
 			</td>
 		</tr>
 		<tr>
 			<td><code>border</code></td>
-			<td>Border of the charecter block <code>in px</code> <code>$("#target").digitalwrite({char: 'W', border: '1px dashed red'});</code></td>
+			<td>Border of the charecter block <code>in px</code> <pre>$("#target").digitalwrite({char: 'W', border: '1px dashed red'});</pre></td>
 		</tr>
 		<tr>
 			<td><code>animation</code></td>
@@ -143,7 +145,22 @@
 				Note that <code>spiral</code> & <code>fade</code> are experimental and buggy!
 			</h6>
 
-				<br><code>$("#target").digitalwrite({char: 'W', border: '1px dashed red'});</code>
+				<br><pre>$("#target").digitalwrite({char: 'W', border: '1px dashed red'});</pre>
+			</td>
+		</tr>
+		<tr>
+			<td><code>success</code></td>
+			<td> (callback function) called when the alphabet has been created on screen.
+
+				<br>
+				<br>
+				<pre>$("#target").digitalwrite({
+	char: 'W',
+	border: '1px dashed red',
+	success: function() {
+		console.log('successfully wrote alphabet W');
+	}
+});</pre>
 			</td>
 		</tr>
 	</table>
@@ -170,6 +187,33 @@
 			<div class="example_transform">
 				<div id="transform_MK" class="target_"></div>
 			</div>
+		</div>
+		<div class="col-md-12">
+			<h4> You can make a whole storyline using the <code>success</code> callback</h4>
+			<pre>$('#transform_MK').digitalwrite({
+	char: 'M',
+	background: 'rgba(0,0,0,.1)',
+	animation: 'default',
+	success: function() {
+		setTimeout(function() {
+			$('#transform_MK').transformTo('N');
+		}, 1000);
+	}
+});		
+</pre>
+		</div>
+		<div class="clearfix" style="height: 20px"></div>
+		<div class="col-md-6">
+			<h3><code>transformTo()</code> method format</h3>
+			<pre>$(identifier).transformTo(char, callback);</pre>
+
+		</div>
+		<div class="col-md-6">
+			<br>
+			<br>
+			<br>
+			<code>char</code> - (charecter) the charecter to transform to.
+			<code>callback</code> - (function, optional) callback called on completion of transformation.
 		</div>
 	</div>
 	<div class="clearfix" style="height: 20px"></div>
@@ -307,7 +351,8 @@
 <script src="./jquery-1.11.1.js"></script>
 <script src="../jquery.digitalwrite.js"></script>
 <script>
-	$("#github_g").digitalwrite({height: 30, width: 30, char: 'G'});
+	$("#github_g").digitalwrite({height: 30, width: 30, char: 'G', success: function() {}});
+	
 	$("#github_i").digitalwrite({height: 30, width: 30, char: 'I'});
 	$("#github_t").digitalwrite({height: 30, width: 30, char: 'T'});
 	$("#github_h").digitalwrite({height: 30, width: 30, char: 'H'});
