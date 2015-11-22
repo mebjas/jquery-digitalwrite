@@ -30,8 +30,7 @@ Its live on: http://minhazav.me/samples/jquery-digitalwrite-example/
  `width` - width of the charecter in px<br>
  `background` - background color of the blocks, ex `red`, `rgba(255, 0, 0, 1)`<br>
  `border` - border property of the blocks, ex `1px solid red`, `2px dotted black`<br>
- `animation` - how the blocks animate to form the charecter at the end. Categories are: `none`, `motion`, `spiral`, `contract` & `fade`
-  of these `spiral` & `fade` are experimental and buggy!
+ `animation` - how the blocks animate to form the charecter at the end. Categories are: `none`, `motion`, `spiral`, `contract` & `fade` of these `spiral` & `fade` are experimental and buggy!<br>
  `success` - (function) callback called when charecter has been printed on screen
 
 So if we use everything it would look something like
@@ -51,7 +50,9 @@ $("#M_Placeholder").digitalwrite({
 
 ### You can also convert a text to other text!
 ```js
-   $("#M_Placeholder").transformTo('K');
+$("#M_Placeholder").transformTo('K', function() {
+  console.info('successfully transformed to K');  
+});
 ```
 ![Image M](http://minhazav.xyz/samples/jquery-digitalwrite-example/aM.png) will transform to ![Image K](http://minhazav.xyz/samples/jquery-digitalwrite-example/aK.png) with animation!
 
