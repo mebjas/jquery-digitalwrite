@@ -1,4 +1,6 @@
 # digitalwrite jQuery plugin
+[![todofy badge](https://todofy.org/b/mebjas/jquery-digitalwrite)](https://todofy.org/r/mebjas/jquery-digitalwrite)
+
 jQuery plugin to write charecters in digital format in a 5x5 matrix. Output looks something like this:
 
 ![screenshot](http://php-minhaz.rhcloud.com//samples/jquery-digitalwrite-example/screenshot.png)
@@ -6,10 +8,10 @@ jQuery plugin to write charecters in digital format in a 5x5 matrix. Output look
 Using this plugin, you can create such charecters with animations, color options & size options!
 In future it may enable you to transform one charecter to another - that should be kinda cool!
 
-# Live Demo & more information - [minhazav.me](http://php-minhaz.rhcloud.com//samples/jquery-digitalwrite-example/)
+# Live Demo & more information - [minhazav.xyz](http://minhazav.xyz/samples/jquery-digitalwrite-example/)
 Its live on: http://minhazav.me/samples/jquery-digitalwrite-example/
 
-# How to use: ([Read More](http://php-minhaz.rhcloud.com//samples/jquery-digitalwrite-example/))
+# How to use: ([Read More](http://minhazav.xyz/samples/jquery-digitalwrite-example/))
  - Create a `div`
  ```html
  <div id="M_Placeholder"></div>
@@ -47,4 +49,10 @@ $("#M_Placeholder").digitalwrite({
 });
 ```
 
-For more information [view documentation](http://php-minhaz.rhcloud.com//samples/jquery-digitalwrite-example/)
+### You can also convert a text to other text!
+```js
+   $("#M_Placeholder").transformTo('K');
+```
+![Image M](http://minhazav.xyz/samples/jquery-digitalwrite-example/aM.png) will transform to ![Image K](http://minhazav.xyz/samples/jquery-digitalwrite-example/aK.png) with animation!
+
+For more information [view documentation](http://minhazav.xyz/samples/jquery-digitalwrite-example/)
