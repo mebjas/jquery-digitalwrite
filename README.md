@@ -25,7 +25,7 @@ Its live on: http://minhazav.me/samples/jquery-digitalwrite-example/
  This will create a 5X5 digital `M` with `width = 100px` & `height = 500px`, in black color.
  These properties can be customised as follows:
  
- `char` - (required) Charecter to print<br>
+ `char` - (required) Charecter to print, `(A-Z, '.', '!') supported`<br>
  `height` - height of the charecter in px<br>
  `width` - width of the charecter in px<br>
  `background` - background color of the blocks, ex `red`, `rgba(255, 0, 0, 1)`<br>
