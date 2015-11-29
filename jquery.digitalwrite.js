@@ -331,6 +331,7 @@ var blobCount = {};
 		if (r < 1) {
 			src.elem.css('top', tgt.y +'px');
 			src.elem.css('left', tgt.x +'px');
+			console.log(tgt.x, tgt.y);
 			return;
 		}
 
@@ -350,6 +351,7 @@ var blobCount = {};
 		if (isNaN(src.y)) {
 			src.elem.css('top', tgt.y +'px');
 			src.elem.css('left', tgt.x +'px');
+			console.log(tgt.x, tgt.y);
 			return;
 		}
 
@@ -673,9 +675,7 @@ var blobCount = {};
 	 */
 	digitalwrite.prototype.SpiralTo = function(id, i, j) {
 		var t = $(".dwelem[pos='" +this.char_x +this.hash +'_' +id +"']").eq(0);
-		t.attr('pos', this.char_x +this.hash +'_' +i +'_' +j);
 		t.css('transition', 'none');
-
 		var src = id.split('_');
 		src = this.GetPosition(src[0], src[1]);
 		src.elem = t;
@@ -683,7 +683,11 @@ var blobCount = {};
 		var tgt = this.GetPosition(i, j);
 
 		var r = Math.sqrt( (src.x - tgt.x) * (src.x - tgt.x) + (src.y - tgt.y) * (src.y - tgt.y) );
-		circle(src, tgt, r, -1, 1, true);
+		setTimeout(function() {
+			t.attr('pos', this.char_x +this.hash +'_' +i +'_' +j);
+			circle(src, tgt, r, -1, 1, true);
+
+		}, 500);
 	}
 
 	/**
