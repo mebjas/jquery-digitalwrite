@@ -32,6 +32,7 @@ Its live on: http://minhazav.me/samples/jquery-digitalwrite-example/
  `border` - border property of the blocks, ex `1px solid red`, `2px dotted black`<br>
  `animation` - how the blocks animate to form the charecter at the end. Categories are: `none`, `motion`, `spiral`, `contract` & `fade` of these `spiral` & `fade` are experimental and buggy!<br>
  `success` - (function) callback called when charecter has been printed on screen
+ `timeout` - control speed of animation, value in ms, `500, default`
 
 So if we use everything it would look something like
 ```js

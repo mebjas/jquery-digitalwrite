@@ -282,6 +282,8 @@ var blobCount = {};
 										blob.MoveTo((x+1) +'_' +(y+1), 3, 3); break;
 									case 'fade':
 										blob.FadeTo((x+1) +'_' +(y+1), i + 1, j + 1); break;
+									case 'flow':
+										blob.flowTo((x+1) +'_' +(y+1), i + 1, j + 1); break;
 									default:
 										blob.MoveTo((x+1) +'_' +(y+1), i + 1, j + 1); break;
 								}
@@ -331,7 +333,6 @@ var blobCount = {};
 		if (r < 1) {
 			src.elem.css('top', tgt.y +'px');
 			src.elem.css('left', tgt.x +'px');
-			console.log(tgt.x, tgt.y);
 			return;
 		}
 
@@ -351,7 +352,6 @@ var blobCount = {};
 		if (isNaN(src.y)) {
 			src.elem.css('top', tgt.y +'px');
 			src.elem.css('left', tgt.x +'px');
-			console.log(tgt.x, tgt.y);
 			return;
 		}
 
@@ -406,6 +406,11 @@ var blobCount = {};
 		}
 		if (typeof options.border != 'undefined') {
 			this.border = options.border;
+		}
+
+		if (typeof options.timeout != 'undefined') {
+			this.timeout = options.timeout;
+			console.log('timeout ', this.timeout);
 		}
 
 		// Set animation property
@@ -665,7 +670,7 @@ var blobCount = {};
 
 		setTimeout(function() {
 			t.fadeIn();
-		}, 1000);
+		}, this.timeout);
 	}
 
 	/**
@@ -683,11 +688,42 @@ var blobCount = {};
 		var tgt = this.GetPosition(i, j);
 
 		var r = Math.sqrt( (src.x - tgt.x) * (src.x - tgt.x) + (src.y - tgt.y) * (src.y - tgt.y) );
+		var _this = this;
 		setTimeout(function() {
-			t.attr('pos', this.char_x +this.hash +'_' +i +'_' +j);
+			t.attr('pos', _this.char_x +_this.hash +'_' +i +'_' +j);
 			circle(src, tgt, r, -1, 1, true);
-
 		}, 500);
+	}
+
+	// Function to create a flow animation
+	// TODO: experimental for now, finish it
+	digitalwrite.prototype.flowTo = function(id, i, j) {
+		var t = $(".dwelem[pos='" +this.char_x +this.hash +'_' +id +"']").eq(0);
+		t.css('transition', 'width .5s ease-out, height .5s ease-out, top .5s ease-out, left .5 ease-out');
+		var src = id.split('_');
+		src = this.GetPosition(src[0], src[1]);
+
+		var tgt = this.GetPosition(i, j);
+		var deltaW = Math.abs(tgt.x - src.x);
+		if (tgt.x < src.x) {
+			t.css('left', tgt.x +'px');
+		}
+		t.css('width', deltaW +'px');
+		var _this = this;
+
+		setTimeout(function() {
+			t.css('width', _this.blobWidth +'px');
+			t.css('left', tgt.x +'px');
+
+			var deltaH = Math.abs(tgt.y - src.y);
+			if (tgt.y < src.y) t.css('top', tgt.y +'px');
+			t.css('height', deltaH +'px');
+			setTimeout(function() {
+				t.css('height', _this.blobHeight +'px');
+				t.css('top', tgt.y +'px');
+				t.attr('pos', _this.char_x +_this.hash +'_' +i +'_' +j);
+			}, _this.timeout);
+		}, this.timeout);
 	}
 
 	/**

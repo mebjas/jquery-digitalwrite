@@ -163,6 +163,14 @@ $("#target").digitalwrite({char: 'W', background: '#abc123'});
 });</pre>
 			</td>
 		</tr>
+		<tr>
+			<td><code>timeout</code></td>
+			<td>time in ms, for animations <code>1000, default</code> 
+				<br>
+				<br>
+				<pre>$("#target").digitalwrite({char: 'W', border: '1px dashed red', timeout: 500});</pre>
+			</td>
+		</tr>
 	</table>
 
 </div>
@@ -353,11 +361,11 @@ $("#target").digitalwrite({char: 'W', background: '#abc123'});
 <script>
 	$("#github_g").digitalwrite({height: 30, width: 30, char: 'G', success: function() {}});
 	
-	$("#github_i").digitalwrite({height: 30, width: 30, char: 'I'});
+	$("#github_i").digitalwrite({height: 30, width: 30, char: 'I', timeout: 500});
 	$("#github_t").digitalwrite({height: 30, width: 30, char: 'T'});
-	$("#github_h").digitalwrite({height: 30, width: 30, char: 'H'});
+	$("#github_h").digitalwrite({height: 30, width: 30, char: 'H', timeout: 500});
 	$("#github_u").digitalwrite({height: 30, width: 30, char: 'U'});
-	$("#github_b").digitalwrite({height: 30, width: 30, char: 'B'});
+	$("#github_b").digitalwrite({height: 30, width: 30, char: 'B', timeout: 500});
 
 	$("#W_placeholder").digitalwrite({char: 'W', background: 'rgba(0, 0, 0, .1)'});
 	$("#L_placeholder").digitalwrite({char: 'L', background: 'rgba(0, 0, 0, .1)'});
@@ -399,7 +407,7 @@ $("#target").digitalwrite({char: 'W', background: '#abc123'});
 			$("#m1").digitalwrite({char: 'M', background: 'rgba(0, 0, 0, .1)'});
 			$("#m2").digitalwrite({char: 'M', background: 'rgba(0, 0, 0, .1)', animation: 'spiral'});
 			$("#m3").digitalwrite({char: 'M', background: 'rgba(0, 0, 0, .1)', animation: 'contract'});
-			$("#m4").digitalwrite({char: 'M', background: 'rgba(0, 0, 0, .1)', animation: 'fade'});
+			$("#m4").digitalwrite({char: 'M', background: 'rgba(0, 0, 0, .1)', animation: 'flow'});
 		});
 
 		setTimeout(function() {
