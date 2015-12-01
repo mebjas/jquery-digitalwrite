@@ -58,3 +58,8 @@ $("#M_Placeholder").transformTo('K', function() {
 ![Image M](http://minhazav.xyz/samples/jquery-digitalwrite-example/aM.png) will transform to ![Image K](http://minhazav.xyz/samples/jquery-digitalwrite-example/aK.png) with animation!
 
 For more information [view documentation](http://minhazav.xyz/samples/jquery-digitalwrite-example/)
+
+
+### Animations
+Different possible animations are: `none`, `motion`, `spiral`, `contract` & `fade`
+![screenshot](http://minhazav.xyz/samples/jquery-digitalwrite-example/animations.gif)
