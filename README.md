@@ -9,7 +9,7 @@ Using this plugin, you can create such charecters with animations, color options
 In future it may enable you to transform one charecter to another - that should be kinda cool!
 
 # Live Demo & more information - [minhazav.xyz](http://minhazav.xyz/samples/jquery-digitalwrite-example/)
-Its live on: http://minhazav.me/samples/jquery-digitalwrite-example/
+Its live on: http://minhazav.xyz/samples/jquery-digitalwrite-example/
 
 # How to use: ([Read More](http://minhazav.xyz/samples/jquery-digitalwrite-example/))
  - Create a `div`
