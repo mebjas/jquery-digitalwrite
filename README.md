@@ -1,7 +1,7 @@
 # digitalwrite jQuery plugin
 [![todofy badge](https://todofy.org/b/mebjas/jquery-digitalwrite)](https://todofy.org/r/mebjas/jquery-digitalwrite)
 
-jQuery plugin to write charecters in digital format in a 5x5 matrix. Output looks something like this:
+jQuery plugin to write charecters in digital format in a 5x5 matrix.
 
 Using this plugin, you can create such charecters with animations, color options & size options!
 In future it may enable you to transform one charecter to another - that should be kinda cool!
