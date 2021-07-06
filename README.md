@@ -3,15 +3,13 @@
 
 jQuery plugin to write charecters in digital format in a 5x5 matrix. Output looks something like this:
 
-![screenshot](http://minhazav.xyz/samples/jquery-digitalwrite-example/screenshot.gif)
-
 Using this plugin, you can create such charecters with animations, color options & size options!
 In future it may enable you to transform one charecter to another - that should be kinda cool!
 
-# Live Demo & more information - [minhazav.xyz](http://minhazav.xyz/samples/jquery-digitalwrite-example/)
-Its live on: http://minhazav.xyz/samples/jquery-digitalwrite-example/
+# Live Demo & more information - [minhazav.dev](https://blog.minhazav.dev/research/jquery-digital-write)
+Its live on: https://blog.minhazav.dev/research/jquery-digital-write
 
-# How to use: ([Read More](http://minhazav.xyz/samples/jquery-digitalwrite-example/))
+# How to use: ([Read More](https://blog.minhazav.dev/research/jquery-digital-write))
  - Create a `div`
  ```html
  <div id="M_Placeholder"></div>
@@ -19,7 +17,7 @@ Its live on: http://minhazav.xyz/samples/jquery-digitalwrite-example/
  
  - Include `jQuery` and this library and in js
  ```js
-    $("#M_Placeholder").digitalwrite({char: 'M'});
+$("#M_Placeholder").digitalwrite({char: 'M'});
  ```
  
  This will create a 5X5 digital `M` with `width = 100px` & `height = 500px`, in black color.
